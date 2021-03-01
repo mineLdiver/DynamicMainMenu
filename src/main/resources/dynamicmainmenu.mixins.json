@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.mine_diver.dynamicmainmenu.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "AccessorEntityBase",
+    "MixinPlayerBase"
+  ],
+  "server": [
+  ],
+  "client": [
+    "AccessorSoundHelper",
+    "Mixinclass_556",
+    "MixinInGame",
+    "MixinMainMenu",
+    "MixinMinecraft",
+    "MixinProgressListenerImpl",
+    "MixinScreenBase",
+    "MixinScrollableBase",
+    "MixinSoundHelper"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
