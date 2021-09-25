@@ -1,7 +1,7 @@
 package net.mine_diver.dynamicmainmenu.mixin;
 
 import net.mine_diver.dynamicmainmenu.DynamicMainMenu;
-import net.minecraft.class_537;
+import net.minecraft.client.CreativeClientInteractionManager;
 import net.minecraft.client.gui.screen.ScreenBase;
 import net.minecraft.client.gui.screen.menu.MainMenu;
 import net.minecraft.level.LevelProperties;
@@ -24,7 +24,7 @@ public class MixinMainMenu extends ScreenBase {
     @Inject(method = "init()V", at = @At("TAIL"))
     private void startMusic(CallbackInfo ci) {
         if (minecraft.level == null) {
-            minecraft.interactionManager = new class_537(minecraft);
+            minecraft.interactionManager = new CreativeClientInteractionManager(minecraft);
             String name = DynamicMainMenu.MODID + "/MainMenu";
             LevelProperties properties = minecraft.getLevelStorage().getLevelData(name);
             if (properties != null && (properties.getSizeOnDisk() / 1024L * 100L / 1024L) / 100 > 25) {
