@@ -1,23 +1,14 @@
 package net.mine_diver.dynamicmainmenu;
 
-import net.mine_diver.unsafeevents.listener.EventListener;
-import net.modificationstation.stationapi.api.event.mod.InitEvent;
-import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
-import net.modificationstation.stationapi.api.mod.entrypoint.EventBusPolicy;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.registry.ModID;
-import net.modificationstation.stationapi.api.util.Null;
 
-import static net.modificationstation.stationapi.api.registry.Identifier.of;
-
-@Entrypoint(eventBus = @EventBusPolicy(registerInstance = false))
 public class DynamicMainMenu {
 
-    @Entrypoint.ModID
-    public static final ModID MODID = Null.get();
+    public static final ModID NAMESPACE = ModID.of("dynamicmainmenu");
 
     // Identifiers
-    public static Identifier modular;
+    public static final Identifier MODULAR = NAMESPACE.id("mainmenu.modular");
 
     // Config
     public static boolean
@@ -34,10 +25,8 @@ public class DynamicMainMenu {
     public static String musicId;
     public static long musicStartTimestamp;
 
-    @EventListener
-    private static void init(InitEvent event) {
-        modular = of(MODID, "mainmenu.modular");
-
+//    @EventListener
+//    private static void init(InitEvent event) {
 //        CONFIG.load();
 //
 //        Category general = CONFIG.getCategory("General");
@@ -64,5 +53,5 @@ public class DynamicMainMenu {
 //        property.setComment(comment.replace("%color%", "blue"));
 //
 //        CONFIG.save();
-    }
+//    }
 }

@@ -23,9 +23,21 @@ public class MixinMainMenu extends ScreenBase {
 
     @Inject(method = "init()V", at = @At("TAIL"))
     private void startMusic(CallbackInfo ci) {
+        if (DynamicMainMenu.musicId == null) {
+            AccessorSoundHelper.getSoundSystem().stop("BgMusic");
+            DynamicMainMenu.captureSoundId = true;
+            minecraft.soundHelper.playSound(DynamicMainMenu.MODULAR.toString(), 1, 1);
+        }
+    }
+
+    @Inject(
+            method = "render",
+            at = @At("HEAD")
+    )
+    private void loadWorld(int j, int f, float par3, CallbackInfo ci) {
         if (minecraft.level == null) {
             minecraft.interactionManager = new CreativeClientInteractionManager(minecraft);
-            String name = DynamicMainMenu.MODID + "/MainMenu";
+            String name = DynamicMainMenu.NAMESPACE + "/MainMenu";
             LevelProperties properties = minecraft.getLevelStorage().getLevelData(name);
             if (properties != null && (properties.getSizeOnDisk() / 1024L * 100L / 1024L) / 100 > 25) {
                 LevelStorage levelStorage = minecraft.getLevelStorage();
@@ -33,11 +45,6 @@ public class MixinMainMenu extends ScreenBase {
                 levelStorage.method_1006(name);
             }
             minecraft.createOrLoadWorld(name, name, new Random().nextLong());
-        }
-        if (DynamicMainMenu.musicId == null) {
-            AccessorSoundHelper.getSoundSystem().stop("BgMusic");
-            DynamicMainMenu.captureSoundId = true;
-            minecraft.soundHelper.playSound(DynamicMainMenu.modular.toString(), 1, 1);
         }
     }
 
